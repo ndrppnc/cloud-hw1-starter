@@ -1,4 +1,4 @@
-# Chatbot Concierge | Frontend Starter #
+# Chatbot Concierge #
 
 ## About ##
 
