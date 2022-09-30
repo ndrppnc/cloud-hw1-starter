@@ -1,0 +1,123 @@
+---
+swagger: "2.0"
+info:
+  description: "AI Customer Service application, built during the Cloud and Big Data\
+    \ course at New York University."
+  version: "1.0.0"
+  title: "AI Customer Service API"
+host: "e0gqi81ueh.execute-api.us-east-1.amazonaws.com"
+basePath: "/first-build"
+schemes:
+- "https"
+paths:
+  /chatbot:
+    post:
+      tags:
+      - "NLU"
+      summary: "The endpoint for the Natural Language Understanding API."
+      description: "This API takes in one or more messages from the client and returns\n\
+        one or more messages as a response. The API leverages the NLP\nbackend functionality,\
+        \ paired with state and profile information\nand returns a context-aware reply.\n"
+      operationId: "sendMessage"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "BotRequest"
+        required: true
+        schema:
+          $ref: "#/definitions/BotRequest"
+      responses:
+        "200":
+          description: "A Chatbot response"
+          schema:
+            $ref: "#/definitions/BotResponse"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        "500":
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+        "403":
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/Error"
+    options:
+      tags:
+      - "NLU"
+      summary: "The endpoint for the Natural Language Understanding API."
+      description: "This endpoints checks the API allowed methods.\n"
+      operationId: "checkMethods"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "BotRequest"
+        required: true
+        schema:
+          $ref: "#/definitions/BotRequest"
+      responses:
+        "200":
+          description: "A Chatbot response"
+          schema:
+            $ref: "#/definitions/BotResponse"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+        "500":
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+        "403":
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/Error"
+definitions:
+  BotRequest:
+    type: "object"
+    properties:
+      messages:
+        type: "array"
+        items:
+          $ref: "#/definitions/Message"
+  Message:
+    type: "object"
+    properties:
+      type:
+        type: "string"
+      unstructured:
+        $ref: "#/definitions/UnstructuredMessage"
+  UnstructuredMessage:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      text:
+        type: "string"
+      timestamp:
+        type: "string"
+        format: "datetime"
+  BotResponse:
+    type: "object"
+    properties:
+      messages:
+        type: "array"
+        items:
+          $ref: "#/definitions/Message"
+  Error:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      message:
+        type: "string"
