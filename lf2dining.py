@@ -19,7 +19,7 @@ docClient.put(pastsearch, function(err, data) {
 });
     var params = {
   MessageBody: JSON.stringify(event.currentIntent.slots),
-  QueueUrl: "https://sqs.us-east-1.amazonaws.com/838023884170/diningmessage.fifo",
+  QueueUrl: "https://sqs.us-east-1.amazonaws.com/************/diningmessage.fifo",
   MessageGroupId: "diningsuggestions"
     };
     sqs.sendMessage(params, function(err, data) {
