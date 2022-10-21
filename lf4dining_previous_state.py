@@ -18,7 +18,7 @@ exports.handler = (event, context, callback) => {
     console.log(params2);
     var params1 = {
   MessageBody: JSON.stringify(params2),
-  QueueUrl: "https://sqs.us-east-1.amazonaws.com/838023884170/diningmessage.fifo",
+  QueueUrl: "https://sqs.us-east-1.amazonaws.com/************/diningmessage.fifo",
   MessageGroupId: "diningsuggestions"
     };
     sqs.sendMessage(params1, function(err, data) {
